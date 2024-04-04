@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 
-import { useObjectMetadataItemForSettings } from '@/object-metadata/hooks/useObjectMetadataItemForSettings';
 import { FieldMetadataItem } from '@/object-metadata/types/FieldMetadataItem';
 import { SettingsDataModelDefaultValueForm } from '@/settings/data-model/components/SettingsDataModelDefaultValue';
 import { SettingsDataModelPreviewFormCard } from '@/settings/data-model/components/SettingsDataModelPreviewFormCard';
@@ -22,6 +21,7 @@ import {
   SettingsDataModelFieldPreviewCardProps,
 } from '@/settings/data-model/fields/preview/components/SettingsDataModelFieldPreviewCard';
 import { FieldMetadataType } from '~/generated-metadata/graphql';
+import { useFilteredObjectMetadataItems } from '@/object-metadata/hooks/useFilteredObjectMetadataItems';
 
 export type SettingsDataModelFieldSettingsFormValues = {
   currency: SettingsObjectFieldCurrencyFormValues;
@@ -79,7 +79,7 @@ export const SettingsDataModelFieldSettingsFormCard = ({
   relationFieldMetadataItem,
   values,
 }: SettingsDataModelFieldSettingsFormCardProps) => {
-  const { findObjectMetadataItemById } = useObjectMetadataItemForSettings();
+  const { findObjectMetadataItemById } = useFilteredObjectMetadataItems();
 
   if (!previewableTypes.includes(fieldMetadataItem.type)) return null;
 
