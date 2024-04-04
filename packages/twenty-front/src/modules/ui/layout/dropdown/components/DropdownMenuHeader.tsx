@@ -1,7 +1,7 @@
 import { ComponentProps, MouseEvent } from 'react';
 import styled from '@emotion/styled';
+import { IconComponent } from 'twenty-ui';
 
-import { IconComponent } from '@/ui/display/icon/types/IconComponent';
 import { LightIconButton } from '@/ui/input/button/components/LightIconButton';
 
 const StyledHeader = styled.li`
