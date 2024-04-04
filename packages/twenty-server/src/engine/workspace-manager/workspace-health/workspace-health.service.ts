@@ -3,7 +3,10 @@ import { InjectDataSource } from '@nestjs/typeorm';
 
 import { DataSource } from 'typeorm';
 
-import { WorkspaceHealthIssue } from 'src/engine/workspace-manager/workspace-health/interfaces/workspace-health-issue.interface';
+import {
+  WorkspaceHealthIssue,
+  WorkspaceHealthIssueType,
+} from 'src/engine/workspace-manager/workspace-health/interfaces/workspace-health-issue.interface';
 import {
   WorkspaceHealthMode,
   WorkspaceHealthOptions,
@@ -80,9 +83,12 @@ export class WorkspaceHealthService {
         );
 
       if (!workspaceTableColumns || workspaceTableColumns.length === 0) {
-        throw new NotFoundException(
-          `Table ${tableName} not found in schema ${schemaName}`,
-        );
+        issues.push({
+          type: WorkspaceHealthIssueType.MISSING_TABLE,
+          message: `Table ${tableName} not found in schema ${schemaName}. Are you renaming a standard object?`,
+          objectMetadata: objectMetadata,
+        });
+        continue;
       }
 
       // Check object metadata health
