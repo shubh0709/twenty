@@ -1,8 +1,10 @@
+import { SQLColumnType } from 'src/engine/metadata-modules/workspace-migration/interfaces/sql-column-type.util';
+
 import { FieldMetadataType } from 'src/engine/metadata-modules/field-metadata/field-metadata.entity';
 
 export const fieldMetadataTypeToColumnType = <Type extends FieldMetadataType>(
   fieldMetadataType: Type,
-): string => {
+): SQLColumnType => {
   /**
    * Composite types are not implemented here, as they are flattened by their composite definitions.
    * See src/metadata/field-metadata/composite-types for more information.

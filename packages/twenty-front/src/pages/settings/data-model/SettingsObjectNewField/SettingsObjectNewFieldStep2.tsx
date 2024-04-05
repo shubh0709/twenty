@@ -12,6 +12,7 @@ import { useObjectMetadataItemOnly } from '@/object-metadata/hooks/useObjectMeta
 import { CoreObjectNameSingular } from '@/object-metadata/types/CoreObjectNameSingular';
 import { modifyRecordFromCache } from '@/object-record/cache/utils/modifyRecordFromCache';
 import { useFindManyRecords } from '@/object-record/hooks/useFindManyRecords';
+import { FieldCurrencyValue } from '@/object-record/record-field/types/FieldMetadata';
 import { SaveAndCancelButtons } from '@/settings/components/SaveAndCancelButtons/SaveAndCancelButtons';
 import { SettingsHeaderContainer } from '@/settings/components/SettingsHeaderContainer';
 import { SettingsPageContainer } from '@/settings/components/SettingsPageContainer';
@@ -218,10 +219,10 @@ export const SettingsObjectNewFieldStep2 = () => {
         const createdMetadataField = await createMetadataField({
           defaultValue:
             validatedFormValues.type === FieldMetadataType.Currency
-              ? {
+              ? ({
                   amountMicros: null,
                   currencyCode: validatedFormValues.currency.currencyCode,
-                }
+                } as FieldCurrencyValue)
               : validatedFormValues.defaultValue,
           description: validatedFormValues.description,
           icon: validatedFormValues.icon,
@@ -275,7 +276,7 @@ export const SettingsObjectNewFieldStep2 = () => {
   };
 
   const excludedFieldTypes: SettingsSupportedFieldType[] = [
-    FieldMetadataType.Currency,
+    // FieldMetadataType.Currency,
     FieldMetadataType.Email,
     FieldMetadataType.FullName,
     FieldMetadataType.Link,

@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
 
+import { SQLColumnType } from 'src/engine/metadata-modules/workspace-migration/interfaces/sql-column-type.util';
+
 import { ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadata/object-metadata.entity';
 import {
   WorkspaceMigrationTableAction,
@@ -53,7 +55,7 @@ export const buildWorkspaceMigrationsForRemoteObject = async (
   eventObjectMetadata: ObjectMetadataEntity,
   favoriteObjectMetadata: ObjectMetadataEntity,
   schema: string,
-  remoteTablePrimaryKeyColumnType: string,
+  remoteTablePrimaryKeyColumnType: SQLColumnType,
   workspaceDataSource: DataSource | undefined,
 ): Promise<WorkspaceMigrationTableAction[]> => {
   const createdObjectName = createdObjectMetadata.nameSingular;

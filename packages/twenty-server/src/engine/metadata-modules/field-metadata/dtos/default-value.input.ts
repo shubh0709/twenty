@@ -74,7 +74,7 @@ export class FieldMetadataDefaultValueCurrency {
   amountMicros: string | null;
 
   @ValidateIf((object, value) => value !== null)
-  @IsQuotedString()
+  @IsString()
   currencyCode: string | null;
 }
 

@@ -5,8 +5,10 @@ import { FieldMetadataDefaultSerializableValue } from 'src/engine/metadata-modul
 import { isFunctionDefaultValue } from 'src/engine/metadata-modules/field-metadata/utils/is-function-default-value.util';
 import { serializeFunctionDefaultValue } from 'src/engine/metadata-modules/field-metadata/utils/serialize-function-default-value.util';
 
+// TODO: this should not serialize from the value type itself
+// but a type passed in parameter
 export const serializeDefaultValue = (
-  defaultValue?: FieldMetadataDefaultSerializableValue,
+  defaultValue: FieldMetadataDefaultSerializableValue | null | undefined,
 ) => {
   if (defaultValue === undefined || defaultValue === null) {
     return null;
@@ -25,7 +27,7 @@ export const serializeDefaultValue = (
   }
 
   // Static default values
-  if (typeof defaultValue === 'string' && defaultValue.startsWith("'")) {
+  if (typeof defaultValue === 'string') {
     return defaultValue;
   }
 
@@ -38,7 +40,7 @@ export const serializeDefaultValue = (
   }
 
   if (defaultValue instanceof Date) {
-    return `'${defaultValue.toISOString()}'`;
+    return defaultValue;
   }
 
   if (Array.isArray(defaultValue)) {

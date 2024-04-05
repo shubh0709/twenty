@@ -66,6 +66,15 @@ export class WorkspaceMigrationFactory {
       ],
       [FieldMetadataType.NUMERIC, { factory: this.basicColumnActionFactory }],
       [FieldMetadataType.NUMBER, { factory: this.basicColumnActionFactory }],
+      [
+        FieldMetadataType.CURRENCY,
+        {
+          factory: this.basicColumnActionFactory,
+          options: {
+            defaultValue: '',
+          },
+        },
+      ],
       [FieldMetadataType.POSITION, { factory: this.basicColumnActionFactory }],
       [FieldMetadataType.RAW_JSON, { factory: this.basicColumnActionFactory }],
       [

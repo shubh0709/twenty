@@ -128,7 +128,7 @@ export type FieldPhoneValue = string;
 export type FieldEmailValue = string;
 export type FieldLinkValue = { url: string; label: string };
 export type FieldCurrencyValue = {
-  currencyCode: CurrencyCode;
+  currencyCode: CurrencyCode | null;
   amountMicros: number | null;
 };
 export type FieldFullNameValue = { firstName: string; lastName: string };

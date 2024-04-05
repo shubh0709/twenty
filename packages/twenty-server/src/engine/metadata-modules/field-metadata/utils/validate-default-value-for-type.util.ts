@@ -23,7 +23,7 @@ import {
 } from 'src/engine/metadata-modules/field-metadata/dtos/default-value.input';
 import { isCompositeFieldMetadataType } from 'src/engine/metadata-modules/field-metadata/utils/is-composite-field-metadata-type.util';
 
-export const defaultValueValidatorsMap = {
+export const defaultValueValidatorsMap: { [type: string]: any[] } = {
   [FieldMetadataType.UUID]: [
     FieldMetadataDefaultValueString,
     FieldMetadataDefaultValueUuidFunction,
@@ -57,25 +57,36 @@ export const validateDefaultValueForType = (
 
   const validators = defaultValueValidatorsMap[type];
 
-  if (!validators) return false;
+  const hasValidators = Array.isArray(validators) && validators.length > 0;
+
+  if (!hasValidators) return false;
 
   const isValid = validators.some((validator) => {
-    const conputedDefaultValue = isCompositeFieldMetadataType(type)
+    const computedDefaultValue = isCompositeFieldMetadataType(type)
       ? defaultValue
       : { value: defaultValue };
 
     const defaultValueInstance = plainToInstance<
       any,
       FieldMetadataClassValidation
-    >(validator, conputedDefaultValue as FieldMetadataClassValidation);
+    >(validator, computedDefaultValue as FieldMetadataClassValidation);
 
-    return (
-      validateSync(defaultValueInstance, {
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        forbidUnknownValues: true,
-      }).length === 0
-    );
+    // TODO: We should find a way to have those errors returned to the client
+    // Right now we just have a default error message which makes it hard to debug without putting console log here.
+    const validationErrors = validateSync(defaultValueInstance, {
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
+    });
+
+    const hasValidationErrors = validationErrors.length > 0;
+
+    console.log({
+      hasValidationErrors,
+      validationErrors,
+    });
+
+    return !hasValidationErrors;
   });
 
   return isValid;

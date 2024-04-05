@@ -184,6 +184,10 @@ export class WorkspaceMigrationRunnerService {
       return;
     }
 
+    console.log({
+      columnMigrations,
+    });
+
     for (const columnMigration of columnMigrations) {
       switch (columnMigration.action) {
         case WorkspaceMigrationColumnActionType.CREATE:
@@ -260,6 +264,22 @@ export class WorkspaceMigrationRunnerService {
     if (hasColumn) {
       return;
     }
+
+    console.log({
+      schemaName,
+      tableName,
+      migrationColumn,
+      tableColumn: {
+        name: migrationColumn.columnName,
+        type: migrationColumn.columnType,
+        default: migrationColumn.defaultValue,
+        enum: migrationColumn.enum?.filter(
+          (value): value is string => typeof value === 'string',
+        ),
+        isArray: migrationColumn.isArray,
+        isNullable: migrationColumn.isNullable,
+      },
+    });
 
     await queryRunner.addColumn(
       `${schemaName}.${tableName}`,

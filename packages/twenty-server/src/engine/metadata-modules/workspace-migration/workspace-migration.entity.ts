@@ -5,6 +5,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { SQLColumnType } from 'src/engine/metadata-modules/workspace-migration/interfaces/sql-column-type.util';
+
 import { RelationOnDeleteAction } from 'src/engine/metadata-modules/relation-metadata/relation-metadata.entity';
 
 export enum WorkspaceMigrationColumnActionType {
@@ -20,7 +22,7 @@ export type WorkspaceMigrationEnum = string | { from: string; to: string };
 
 export interface WorkspaceMigrationColumnDefinition {
   columnName: string;
-  columnType: string;
+  columnType: SQLColumnType;
   enum?: WorkspaceMigrationEnum[];
   isArray?: boolean;
   isNullable?: boolean;

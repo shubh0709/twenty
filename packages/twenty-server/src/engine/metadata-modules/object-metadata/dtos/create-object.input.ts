@@ -9,6 +9,8 @@ import {
   IsUUID,
 } from 'class-validator';
 
+import { SQLColumnType } from 'src/engine/metadata-modules/workspace-migration/interfaces/sql-column-type.util';
+
 import { IsValidMetadataName } from 'src/engine/decorators/metadata/is-valid-metadata-name.decorator';
 import { BeforeCreateOneObject } from 'src/engine/metadata-modules/object-metadata/hooks/before-create-one-object.hook';
 
@@ -70,5 +72,5 @@ export class CreateObjectInput {
 
   @IsOptional()
   @Field({ nullable: true })
-  remoteTablePrimaryKeyColumnType?: string;
+  remoteTablePrimaryKeyColumnType?: SQLColumnType;
 }

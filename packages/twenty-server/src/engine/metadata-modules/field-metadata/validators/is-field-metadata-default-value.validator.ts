@@ -48,7 +48,9 @@ export class IsFieldMetadataDefaultValue
       type = fieldMetadata.type;
     }
 
-    return validateDefaultValueForType(type, value);
+    const isValid = validateDefaultValueForType(type, value);
+
+    return isValid;
   }
 
   defaultMessage(): string {
